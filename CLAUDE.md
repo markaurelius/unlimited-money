@@ -5,14 +5,13 @@
 
 ## Status
 
-Current Phase: 00-discovery
+Current Phase: 04-data (complete — ready to scaffold)
 Stack: TBD
-Last Updated: <!-- update when you make changes -->
+Last Updated: 2026-03-15
 
 ## Next Action
 
-Fill in `00-discovery/brief.md`. Answer the four questions as concretely as possible.
-Run `make status` to see progress across all phases.
+Run `make scaffold` to generate the engineering spec and code skeleton.
 
 ## Key Decisions
 
@@ -22,11 +21,13 @@ Run `make status` to see progress across all phases.
 ## Stack Choices
 
 <!-- Fill in once decided in 03-design or 05-engineering -->
-- Frontend: TBD
-- Backend: TBD
-- Database: TBD
-- Hosting: TBD
-- Auth: TBD
+- Frontend: Next.js + Tailwind CSS
+- Backend: Python + FastAPI
+- Database: PostgreSQL (Supabase or Railway)
+- Hosting: Fly.io
+- Auth: Supabase Auth or Auth.js
+- Email: Resend
+- Billing: Stripe
 
 ## Agent Org
 
@@ -47,3 +48,18 @@ Slash commands: `/interview` `/review [phase]` `/advance` `/build [task]`
 ## Decisions Log
 
 <!-- Running log — newest at top. Summarize decisions from each phase doc here. -->
+- [00] Chosen idea: SEC EDGAR insider trading alerts — retail-facing dashboard/alerts built on direct Form 4 ingestion
+- [00] Primary user: retail investor, self-directed, already pays for tools like Unusual Whales, $50k–$500k portfolio
+- [00] Key differentiator: speed + noise filtering (strip 10b5-1 plan sales, option exercises) vs. congress-focused competitors
+- [00] First milestone: backtest proving filtered discretionary insider buys outperform a benchmark before acquiring any customers
+- [01] Revenue model: freemium subscription — free tier with 48hr delay, paid tier $20/month with real-time alerts + analysis
+- [01] Target: 500 paying users / $10k MRR by month 12
+- [01] Conversion mechanism: backtest results as proof of signal quality, surfaced in free tier
+- [02] v1 is scored insider feed + email alerts only — no in-browser exploration or custom analysis
+- [02] Four pre-packaged signals: company impact, industry impact, trade outcome rates (1/3/6/12mo), coupled trades (sell A + buy B within 30 days)
+- [02] Congressional trades explicitly out of scope
+- [03] Web-only, desktop-first — email is the mobile surface
+- [03] Stack: FastAPI + Next.js/Tailwind + PostgreSQL + Fly.io + Resend + Stripe
+- [04] North star: paid subscriber monthly retention rate
+- [04] Signal accuracy rate (% of alerts that outperform SPY at 30 days) is both internal quality check and user-facing monthly report
+- [04] PostHog for analytics, Postgres for everything else — no data warehouse in v1
